@@ -38,9 +38,16 @@ namespace BlinkJenkinsStatus
         public void BlinkOff()
         {
             var server = new Blink1();
-            server.open();
-            server.setRGB(0, 0, 0);
-            server.close();
+
+            if (server.open())
+            {
+                server.setRGB(0, 0, 0);
+                server.close();
+            }
+            else
+            {
+                throw new Exception("No Blink-device found.");
+            };
         }
 
         public void Manage(JenkinsProperties.JenkinsStatus status)
@@ -61,13 +68,16 @@ namespace BlinkJenkinsStatus
             }
 
             blinkServer = new Blink1();
-            blinkServer.open();
-
-            FlashBlink(bColor, 5);
-
-            SetBlinkColor(bColor);
-
-            blinkServer.close();
+            if (blinkServer.open())
+            {
+                FlashBlink(bColor, 5);
+                SetBlinkColor(bColor);
+                blinkServer.close();
+            }
+            else
+            {
+                throw new Exception("No Blink-device found.");
+            }
         }
     }
 }
