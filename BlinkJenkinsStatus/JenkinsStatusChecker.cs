@@ -109,8 +109,8 @@ namespace BlinkJenkinsStatus
             }
 
             if (OK > 0) { status = JenkinsProperties.JenkinsStatus.BuildOK; }
-            if (Mix > 0) { status = JenkinsProperties.JenkinsStatus.BuildMixed; }
             if (Err > 0) { status = JenkinsProperties.JenkinsStatus.BuildError; }
+            if (Mix > 0) { status = JenkinsProperties.JenkinsStatus.BuildMixed; }
 
             if (_jenkinsStatus != status)
             {
