@@ -2,6 +2,8 @@
 using System.IO;
 using System.Net;
 using System.Timers;
+using BlinkJenkinsStatus.Properties;
+using System.Linq;
 
 namespace BlinkJenkinsStatus
 {
@@ -82,11 +84,13 @@ namespace BlinkJenkinsStatus
                     throw new Exception("No response from server");
                 }
 
-                dynamic json = Newtonsoft.Json.JsonConvert.DeserializeObject(responseFromServer);
+                var props = Settings.Default.Applications.Split(';');
 
+                dynamic json = Newtonsoft.Json.JsonConvert.DeserializeObject(responseFromServer);
 
                 foreach (dynamic d in json.jobs)
                 {
+                    if (!props.Contains((string)d.name)) { continue; }
 
                     if (((string)d.color) == "blue")
                     {

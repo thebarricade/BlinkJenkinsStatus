@@ -76,7 +76,7 @@ namespace BlinkJenkinsStatus
             }
             else
             {
-                throw new Exception("No Blink-device found.");
+                //throw new Exception("No Blink-device found.");
             }
         }
     }
